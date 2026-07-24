@@ -35,7 +35,9 @@ The app includes an AI-style planning feature that generates a study plan from u
 ## Screenshots
 
 ![ss1](assets/screenshot-form.svg)
+
 ![ss2](assets/screenshot-plan.svg)
+
 ![ss3](assets/screenshot-mobile.svg)
 
 ## How to run locally
