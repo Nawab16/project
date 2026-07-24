@@ -1,6 +1,6 @@
-# FocusFlow Planner
+# Feel Good Planner
 
-FocusFlow Planner is a lightweight web app that helps students turn a chaotic week of courses into a calmer, more realistic study schedule. It is designed for students who juggle multiple classes, deadlines, and energy levels and need structure without extra friction.
+Feel Good Planner is a lightweight web app that helps students turn a chaotic week of courses into a calmer, more realistic study schedule. It is designed for students who juggle multiple classes, deadlines, and energy levels and need structure without extra friction.
 
 ## Live demo
 
