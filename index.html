@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FocusFlow Planner</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, Arial, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: linear-gradient(135deg, #0f172a, #111827);
+        color: #f8fafc;
+      }
+      .container {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 2rem 1.2rem 3rem;
+      }
+      .hero, .card {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(2, 8, 23, 0.25);
+      }
+      .hero { padding: 2rem; margin-bottom: 1rem; }
+      .card { padding: 1.25rem; margin-bottom: 1rem; }
+      h1, h2 { margin-top: 0; }
+      form { display: grid; gap: 0.8rem; }
+      label { font-weight: 600; }
+      input, select, button {
+        font: inherit;
+        padding: 0.8rem 0.9rem;
+        border-radius: 12px;
+        border: 1px solid #334155;
+      }
+      button {
+        background: linear-gradient(90deg, #38bdf8, #818cf8);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .result { white-space: pre-line; line-height: 1.6; }
+      .pill { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 999px; background: #1e293b; margin-right: 0.4rem; }
+      .hint { color: #cbd5e1; font-size: 0.95rem; }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <section class="hero">
+        <p class="pill">AI study planning</p>
+        <h1>FocusFlow Planner</h1>
+        <p>Turn your week into a calmer, more realistic study routine. This app helps students turn scattered subjects into a clear plan they can follow.</p>
+      </section>
+
+      <section class="card">
+        <h2>Build your plan</h2>
+        <form id="planner-form">
+          <label>Subjects (comma separated)</label>
+          <input id="subjects" placeholder="Math, Biology, History" required />
+          <label>Days to spread the plan across</label>
+          <input id="days" type="number" min="1" max="7" value="3" />
+          <label>Study mood</label>
+          <select id="focus">
+            <option value="balanced">Balanced</option>
+            <option value="exam">Exam prep</option>
+            <option value="light">Light review</option>
+          </select>
+          <button type="submit">Generate plan</button>
+        </form>
+        <p class="hint">The planner uses a custom AI instruction prompt to create a practical study routine. If an OpenAI key is configured, it uses the model; otherwise it runs a local fallback planner.</p>
+      </section>
+
+      <section class="card">
+        <h2>Plan output</h2>
+        <div id="result" class="result">Your AI-generated plan will appear here.</div>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById('planner-form');
+      const result = document.getElementById('result');
+
+      function generateLocalPlan(input) {
+        const subjects = (input.subjects || '').split(',').map(s => s.trim()).filter(Boolean);
+        const days = Number(input.days || 3);
+        const focus = input.focus || 'balanced';
+        const base = [
+          'Review notes and mark the most confusing concepts',
+          'Practice a timed set of problems or flashcards',
+          'Summarize the topic in your own words and test yourself'
+        ];
+
+        const plan = subjects.length ? subjects.map((subject, index) => ({
+          subject,
+          day: `Day ${((index % days) + 1)}`,
+          task: base[index % base.length],
+          intensity: focus === 'exam' ? 'High' : focus === 'light' ? 'Low' : 'Medium'
+        })) : [
+          { subject: 'General study', day: 'Day 1', task: 'Review your notes and set a clear goal for the day', intensity: 'Medium' }
+        ];
+
+        return {
+          summary: `A ${focus} study plan for ${subjects.length || 1} focus areas over ${days} days.`,
+          plan,
+          source: 'local'
+        };
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        result.textContent = 'Generating your plan...';
+
+        const payload = {
+          subjects: document.getElementById('subjects').value,
+          days: document.getElementById('days').value,
+          focus: document.getElementById('focus').value
+        };
+
+        try {
+          const response = await fetch('/api/plan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            const sourcePrefix = data.source === 'openai' ? '🤖 AI planner' : '🧠 Local planner';
+            result.textContent = `${sourcePrefix}\n${data.summary}\n\n${data.plan.map(item => `• ${item.day}: ${item.subject} — ${item.task} (${item.intensity})`).join('\n')}`;
+            return;
+          }
+        } catch (error) {
+          // Fall back to the browser-side planner when no backend is available.
+        }
+
+        const data = generateLocalPlan(payload);
+        const sourcePrefix = '🧠 Local planner';
+        result.textContent = `${sourcePrefix}\n${data.summary}\n\n${data.plan.map(item => `• ${item.day}: ${item.subject} — ${item.task} (${item.intensity})`).join('\n')}`;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "focusflow-study-planner",
+  "version": "1.0.0",
+  "description": "AI-powered study planner for busy students",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
