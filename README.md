@@ -4,7 +4,11 @@ FocusFlow Planner is a lightweight web app that helps students turn a chaotic we
 
 ## Live demo
 
-Open the app here: https://nawab16.github.io/project/
+The app is published in the repository and can be previewed here:
+https://htmlpreview.github.io/?https://raw.githubusercontent.com/Nawab16/project/main/docs/index.html
+
+If GitHub Pages is enabled for the repository, the app will also be available at:
+https://nawab16.github.io/project/
 
 ## What problem it solves
 
