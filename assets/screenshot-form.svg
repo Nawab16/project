@@ -1,10 +1,45 @@
-<svg width="800" height="450" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="450" fill="#0f172a"/>
-  <rect x="50" y="50" width="700" height="350" rx="24" fill="#111827" stroke="#334155" stroke-width="2"/>
-  <rect x="90" y="95" width="180" height="18" rx="9" fill="#38bdf8"/>
-  <rect x="90" y="130" width="320" height="10" rx="5" fill="#64748b"/>
-  <rect x="90" y="190" width="220" height="40" rx="12" fill="#1e293b"/>
-  <rect x="90" y="255" width="140" height="40" rx="12" fill="#1e293b"/>
-  <rect x="90" y="320" width="180" height="46" rx="23" fill="#818cf8"/>
-  <text x="90" y="380" fill="#f8fafc" font-family="Arial" font-size="24">FocusFlow Planner</text>
+<svg width="800" height="450" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background with Gradient Accent -->
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F3B78" />
+      <stop offset="50%" stop-color="#2D1A47" />
+      <stop offset="100%" stop-color="#191530" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg-grad)" />
+
+  <!-- TOP CARD: Header -->
+  <rect x="20" y="15" width="760" height="190" rx="20" fill="#1e1a3a" />
+  
+  <!-- Pill Badge -->
+  <rect x="45" y="40" width="145" height="30" rx="15" fill="#3f2e56" />
+  <text x="55" y="60" fill="#e2c8f0" font-size="13" font-weight="500">Mood + study planning</text>
+  
+  <!-- Main Title -->
+  <text x="45" y="112" fill="#ffffff" font-size="34" font-weight="700">Feel Good Planner</text>
+  
+  <!-- Description Paragraph -->
+  <text x="45" y="148" fill="#c3c0d6" font-size="14">Turn your week into a calmer, brighter study routine. Feel Good helps students turn scattered subjects into a clear plan that feels</text>
+  <text x="45" y="168" fill="#c3c0d6" font-size="14">lighter and more motivating.</text>
+
+  <!-- BOTTOM CARD: Form -->
+  <rect x="20" y="220" width="760" height="215" rx="20" fill="#1e1a3a" />
+  
+  <!-- Form Title -->
+  <text x="35" y="252" fill="#ffffff" font-size="22" font-weight="700">Build your plan</text>
+
+  <!-- Input Field 1: Subjects -->
+  <text x="35" y="285" fill="#ffffff" font-size="14" font-weight="600">Subjects (comma separated)</text>
+  <rect x="35" y="297" width="730" height="38" rx="14" fill="#3a383d" />
+  <text x="48" y="321" fill="#7d7a85" font-size="14">Math, Biology, History</text>
+
+  <!-- Input Field 2: Days -->
+  <text x="35" y="360" fill="#ffffff" font-size="14" font-weight="600">Days to spread the plan across</text>
+  <rect x="35" y="372" width="730" height="38" rx="14" fill="#3a383d" />
+  <text x="48" y="396" fill="#ffffff" font-size="14">3</text>
+
+  <!-- Input Field 3 Label -->
+  <text x="35" y="432" fill="#ffffff" font-size="14" font-weight="600">Study mood</text>
 </svg>
